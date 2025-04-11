@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Музыкальный плеер</title>
+    <link rel="stylesheet" href="css/player.css" />
+  </head>
+  <body>
+    <main class="player">
+      <div class="player__content">
+        <!-- Боковая панель с библиотекой -->
+        <aside class="player__library library">
+          <h2 class="library__title center">Твоя библиотека</h2>
+          <div class="library__actions">
+            <input
+              type="file"
+              id="music-upload"
+              class="library__upload offscreen"
+              accept="audio/*"
+            />
+            <button
+              class="button button--add"
+              aria-label="Добавить песню"
+              onclick="document.getElementById('music-upload').click()"
+            >
+              <!-- <span class="button__icon">+</span> -->
+              <span class="button__text">Добавить песню</span>
+            </button>
+            <button class="button button--add" aria-label="Создать плейлист">
+              <!-- <span class="button__icon">+</span> -->
+              <span class="button__text">Создать плейлист</span>
+            </button>
+          </div>
+          <div class="library__search search">
+            <form class="search__form" role="search">
+              <input
+                class="search__input"
+                type="search"
+                placeholder="Поиск..."
+                aria-label="Поиск в библиотеке"
+              />
+              <!-- <button class="search__button" type="submit">🔍</button> -->
+            </form>
+          </div>
+          <section class="library__media media" aria-label="Медиатека">
+            <ul
+              class="media__list"
+              role="listbox"
+              aria-label="Список треков и плейлистов"
+            >
+              <li
+                class="media__item media__item--track"
+                role="option"
+                tabindex="0"
+                aria-selected="false"
+                data-id="track-1"
+              >
+                <figure class="media__cover">
+                  <img
+                    class="media__image"
+                    src="https://i.ytimg.com/vi/zOWwxb8-VnM/maxresdefault.jpg"
+                    alt="Обложка альбома 'Звездопад'"
+                  />
+                </figure>
+                <div class="media__info">
+                  <h3 class="media__name">Название</h3>
+                  <p class="media__meta">Альбом · Группа</p>
+                </div>
+              </li>
+            </ul>
+          </section>
+        </aside>
+
+        <!-- Основная область плеера -->
+        <section
+          class="player__now-playing now-playing"
+          aria-label="Сейчас играет"
+        >
+          <figure class="now-playing__cover">
+            <img
+              class="now-playing__image"
+              src="assets/img/default-album-img.png"
+              alt="Обложка текущего трека"
+            />
+          </figure>
+          <div class="now-playing__info">
+            <h2 class="now-playing__title center">Про дурачка</h2>
+            <p class="now-playing__artist center">Гражданская Оборона</p>
+          </div>
+        </section>
+      </div>
+      <!-- Панель управления -->
+      <section
+        class="player__controls controls"
+        aria-label="Управление плеером"
+      >
+        <div class="controls__buttons" role="toolbar">
+          <button
+            class="controls__button controls__button--prev"
+            aria-label="Предыдущий трек"
+          >
+            <img src="assets/img/rewind.png" />
+          </button>
+          <button
+            class="controls__button controls__button--play"
+            aria-label="Воспроизвести/пауза"
+          >
+            <img src="assets/img/play.png" />
+            <!-- <img src="assets/img/pause.png" /> -->
+          </button>
+          <button
+            class="controls__button controls__button--next"
+            aria-label="Следующий трек"
+          >
+            <img src="assets/img/next.png" />
+          </button>
+        </div>
+        <div class="controls__range">
+          <div class="controls__progress progress">
+            <span class="progress__time">0:00 </span>
+            <input
+              class="progress__bar"
+              type="range"
+              id="progress"
+              min="0"
+              max="100"
+              value="0"
+              aria-label="Прогресс трека"
+            />
+            <span class="progress__time">3:45</span>
+          </div>
+          <div class="controls__volume volume">
+            <span class="volume__icon" aria-hidden="true">🔊</span>
+            <input
+              class="volume__slider"
+              type="range"
+              id="volume"
+              min="0"
+              max="100"
+              value="80"
+              aria-label="Громкость"
+            />
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="client.js"></script>
+  </body>
+</html>
