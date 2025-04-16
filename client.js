@@ -20,7 +20,8 @@ document
       });
 
       if (!response.ok) throw new Error("Ошибка загрузки");
-      console.log("Файл успешно загружен");
+
+      loadTracks();
     } catch (error) {
       console.error("Ошибка", error);
     }
