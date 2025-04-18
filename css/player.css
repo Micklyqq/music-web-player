@@ -162,6 +162,7 @@ p {
   margin-right: var(--MARGIN-SIDE);
   border-top: 1px solid #7371713a;
   border-bottom: 1px solid #7371713a;
+  min-height: 150px;
 
   transition: all 0.2s ease;
   opacity: 1;
@@ -174,15 +175,17 @@ p {
   pointer-events: none;
 }
 
-.media__item > :first-child {
+.media__content {
   display: flex;
+  align-items: center;
   padding: var(--PADDING-TB) var(--PADDING-SIDE);
+  min-width: 92%;
 }
-.media__item > :first-child:hover {
+.media__content:hover {
   background-color: hsl(0, 0%, 11%);
   cursor: pointer;
 }
-.media__item > :first-child:active {
+.media__content:active {
   cursor: pointer;
   transform: translateY(3px);
   filter: brightness(0.8);

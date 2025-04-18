@@ -307,7 +307,7 @@ function createTrackElement(track) {
   trackElement.ariaSelected = "false";
 
   trackElement.innerHTML = `
-    <div>
+    <div class="media__content">
     <figure class="media__cover">
       <img class="media__image" 
            src="${track.metadata.cover || "assets/img/default-album-img.png"}" 
