@@ -158,11 +158,11 @@ p {
 }
 .media__item {
   display: flex;
-  padding: var(--PADDING-TB) var(--PADDING-SIDE);
   margin: var(--MARGIN-TB) 0;
   margin-right: var(--MARGIN-SIDE);
   border-top: 1px solid #7371713a;
   border-bottom: 1px solid #7371713a;
+
   transition: all 0.2s ease;
   opacity: 1;
   transform: translateY(0);
@@ -174,11 +174,15 @@ p {
   pointer-events: none;
 }
 
-.media__item:hover {
+.media__item > :first-child {
+  display: flex;
+  padding: var(--PADDING-TB) var(--PADDING-SIDE);
+}
+.media__item > :first-child:hover {
   background-color: hsl(0, 0%, 11%);
   cursor: pointer;
 }
-.media__item:active {
+.media__item > :first-child:active {
   cursor: pointer;
   transform: translateY(3px);
   filter: brightness(0.8);
@@ -187,6 +191,82 @@ p {
 .media__item--active {
   background-color: hsl(0, 0%, 11%);
 }
+
+.media__actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--FONT-COLOR);
+  background-color: var(--BGCOLOR-THIRD);
+  width: 8%;
+  min-width: 8%;
+}
+
+.media--offscreen {
+  opacity: 0;
+  position: absolute;
+  transform: translateX(20px);
+  pointer-events: none;
+}
+/* .media__actions:hover {
+  background-color: #1a472a;
+  color: hsl(0, 0%, 80%);
+  cursor: pointer;
+}
+.media__actions:active {
+  transform: translateY(3px);
+  filter: brightness(0.8);
+} */
+
+.media__more-actions-button {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.media__action-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.media__action-button--red:hover {
+  background-color: hsl(0, 100%, 40%);
+  cursor: pointer;
+}
+
+.media__action-button--blue:hover {
+  background-color: hsl(180, 100%, 30%);
+  cursor: pointer;
+}
+
+.media__action-button--red:active {
+  background-color: hsl(0, 100%, 40%);
+  transform: translateY(1px);
+  filter: brightness(0.8);
+  cursor: pointer;
+}
+
+.media__action-button--blue:active {
+  background-color: hsl(180, 100%, 30%);
+  transform: translateY(-1px);
+  filter: brightness(0.8);
+  cursor: pointer;
+}
+
+.media__action-image {
+  width: 70%;
+  height: auto;
+}
+
 .media__info {
   margin-left: 1em;
 }

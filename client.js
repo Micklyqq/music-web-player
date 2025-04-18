@@ -307,18 +307,32 @@ function createTrackElement(track) {
   trackElement.ariaSelected = "false";
 
   trackElement.innerHTML = `
+    <div>
     <figure class="media__cover">
       <img class="media__image" 
            src="${track.metadata.cover || "assets/img/default-album-img.png"}" 
            alt="${track.metadata.title} cover">
     </figure>
+  
     <div class="media__info">
       <h3 class="media__name">${track.metadata.title}</h3>
       <p class="media__meta">${track.metadata.artist}</p>
     </div>
+    </div>
+
+    <div class="media__actions media__actions--mouseover">
+      <div class="media__more-actions-button">...</div>
+      <div class="media__action-button media__action-button--blue media--offscreen">
+      <img class="media__action-image " src="assets/img/settings.svg">
+      </div>
+      <div class="media__action-button media__action-button--red media--offscreen">
+      <img class="media__action-image " src="assets/img/trash.svg">
+      </div>
+    </div>
+   
   `;
 
-  trackElement.addEventListener("click", () => {
+  trackElement.querySelector("div").addEventListener("click", () => {
     document.querySelectorAll(".media__item").forEach((el) => {
       el.classList.remove("media__item--active");
     });
@@ -327,5 +341,65 @@ function createTrackElement(track) {
     updatePlayButton();
   });
 
+  const actionsContainer = trackElement.querySelector(".media__actions");
+  const removeButton = trackElement.querySelector(".media__action-button--red");
+
+  actionsContainer.addEventListener("mouseenter", () => {
+    showTrackOptions(actionsContainer);
+  });
+
+  actionsContainer.addEventListener("mouseleave", () => {
+    hideTrackOptions(actionsContainer);
+  });
+
+  removeButton.addEventListener("click", () => {
+    deleteTrack(track);
+  });
+
   return trackElement;
 }
+
+// update/delete track
+
+function showTrackOptions(container) {
+  const moreButton = container.querySelector(".media__more-actions-button");
+  const actionButtons = container.querySelectorAll(".media__action-button");
+
+  moreButton.classList.add("media--offscreen");
+  actionButtons.forEach((btn) => btn.classList.remove("media--offscreen"));
+}
+
+function hideTrackOptions(container) {
+  const moreButton = container.querySelector(".media__more-actions-button");
+  const actionButtons = container.querySelectorAll(".media__action-button");
+
+  moreButton.classList.remove("media--offscreen");
+  actionButtons.forEach((btn) => btn.classList.add("media--offscreen"));
+}
+
+async function deleteTrack(trackElement) {
+  try {
+    const fileName = encodeURIComponent(trackElement.filename);
+    let response = await fetch(`http://localhost:5500/tracks/${fileName}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || "Failed to delete");
+    }
+
+    const result = await response.json();
+    console.log(`File deleted: `, result);
+    loadTracks();
+    return result;
+  } catch (error) {
+    console.log("Delete failed: " + error);
+    throw error;
+  }
+}
+
+function openChangeModal() {}

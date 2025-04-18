@@ -79,6 +79,31 @@ app.get("/tracks/:filename", (req, res) => {
   }
 });
 
+app.delete("/tracks/:filename", async (req, res) => {
+  try {
+    const filename = decodeURIComponent(req.params.filename);
+
+    const filePath = path.join(uploadDir, filename);
+
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ error: "File not found" });
+    }
+
+    await fs.promises.unlink(filePath);
+
+    res.json({
+      success: true,
+      message: `File ${filename} deleted successfully`,
+    });
+  } catch (error) {
+    console.error("Error deleting file: ", error);
+    res.status(500).json({
+      error: "Failed to delete file",
+      details: error.message,
+    });
+  }
+});
+
 const PORT = 5500;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
