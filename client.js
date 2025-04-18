@@ -90,6 +90,9 @@ function updateProgress() {
     document.querySelector(".progress__time:first-child").textContent =
       formatTime(currentAudio.currentTime);
 
+    document.querySelector(".progress__time--duration").textContent =
+      formatTime(currentAudio.duration);
+
     const progressBar = document.getElementById("progress");
     const percent = (currentAudio.currentTime / currentAudio.duration) * 100;
     progressBar.style.setProperty("--progress", `${percent}%`);
